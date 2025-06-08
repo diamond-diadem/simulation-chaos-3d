@@ -1,5 +1,6 @@
 # machinery/__init__.py
 
-from .lorenz import LorenzSystem
+from .lorenz import LorenzSystem, LorenzSimulation
 
-__all__ = ["LorenzSystem"]
+__all__ = ["LorenzSystem", "LorenzSimulation"]
+
