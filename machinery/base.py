@@ -90,3 +90,9 @@ class AbstractSimulation(ABC):
         """
 
         pass
+
+    @property
+    def trajectory(self):
+        if self.solution is None:
+            raise RuntimeError("Simulation not yet run")
+        return self.solution.t, self.solution.y
