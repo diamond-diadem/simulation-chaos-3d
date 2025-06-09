@@ -16,11 +16,23 @@ class LorenzSystem:
         return [dx, dy, dz]
     
 class LorenzSimulation:
-    def __init__(self, sigma, rho, beta, t_span, n_t_steps, X0):
+    def __init__(self, sigma, rho, beta, t_span, n_t_steps, X0, method="RK45"):
+        
+        assert isinstance(sigma, (int, float)), "sigma must be a number"
+        assert isinstance(rho, (int, float)), "rho must be a number"
+        assert isinstance(beta, (int, float)), "beta must be a number"
+        assert isinstance(t_span, (tuple, list)) and len(t_span) == 2 and t_span[1] > t_span[0], \
+            "t_span must be a tuple or list of two elements (t0, tf) with tf > t0"
+        assert isinstance(n_t_steps, int) and n_t_steps > 0, "n_t_steps must be a positive integer"
+        assert isinstance(X0, (list, tuple, np.ndarray)) and len(X0) == 3, "X0 must be a 3-element iterable"
+        assert method in ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"], \
+            "method must be one of 'RK45', 'RK23', 'DOP853', 'Radau', 'BDF', or 'LSODA'"
+
         self.f = LorenzSystem(sigma, rho, beta)
         self.t_span = t_span
         self.t_eval = np.linspace(*t_span, n_t_steps)
         self.X0 = X0
+        self.method = method
         self.solution = None
 
     def run(self):
@@ -29,7 +41,7 @@ class LorenzSimulation:
             self.t_span,
             self.X0,
             t_eval=self.t_eval,
-            method="RK45"
+            method=self.method,
         )
         return self.solution
 
