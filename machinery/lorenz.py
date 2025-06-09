@@ -39,8 +39,8 @@ class LorenzSimulation:
 
     def plot_solution(self):
 
-        # fig = plt.figure(figsize=(10, 7))
-        # ax = fig.add_subplot(111, projection='3d')
+        if self.solution is None:
+            raise ValueError("No solution available. Please run the simulation first.")
 
         x, y, z = self.solution.y
         fig = go.Figure(data=go.Scatter3d(
@@ -54,11 +54,3 @@ class LorenzSimulation:
             zaxis_title='z'
         ))
         fig.show()
-        # ax.plot(x, y, z, lw=0.5)
-
-        # ax.set_xlabel("x")
-        # ax.set_ylabel("y")
-        # ax.set_zlabel("z")
-        # ax.set_title("Attracteur de Lorenz")
-
-        # plt.show()
