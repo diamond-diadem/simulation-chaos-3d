@@ -77,4 +77,13 @@ class RosslerSimulation(AbstractSimulation):
 
     def plot_solution(self, backend='matplotlib'):
 
+        """
+        Plot the solution of the Rossler system using the specified backend.
+        Parameters:
+        backend : str
+            The plotting backend to use, either 'matplotlib' or 'plotly'.
+        Raises:
+        ValueError: If the solution has not been computed yet.
+        """
+
         plot_xyz(*self.solution.y, backend)
