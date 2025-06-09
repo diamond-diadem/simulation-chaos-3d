@@ -45,6 +45,11 @@ class AbstractSimulation(ABC):
         self.X0 = np.asarray(X0, dtype=float)
         self.method = method
         self.solution = None
+    
+    def __repr__(self):
+        cls = self.__class__.__name__
+        params = self.f.__dict__
+        return f"<{cls} {params} t_span={self.t_span} n_t_steps={len(self.t_eval)} X0={self.X0} method='{self.method}'>"
 
     @abstractmethod
     def plot_solution(self, backend='matplotlib'):
