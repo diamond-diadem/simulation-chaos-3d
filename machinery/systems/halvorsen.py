@@ -1,5 +1,5 @@
-from .base import AbstractSimulation
-from .visualisation import plot_xyz
+from ..base import AbstractSimulation
+from ..visualisation import plot_xyz
 
 class HalvorsenSystem:
     """
