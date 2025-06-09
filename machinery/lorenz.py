@@ -17,6 +17,10 @@ class LorenzSimulation(AbstractSimulation):
     
     def __init__(self, sigma, rho, beta, t_span, n_t_steps, X0, method="RK45"):
 
+        assert isinstance(sigma, (int, float)), "sigma must be a number"
+        assert isinstance(rho, (int, float)), "rho must be a number"
+        assert isinstance(beta, (int, float)), "beta must be a number"
+
         system  = LorenzSystem(sigma, rho, beta)
         super().__init__(system, t_span, n_t_steps, X0, method)
 

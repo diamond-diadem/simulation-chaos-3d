@@ -15,6 +15,11 @@ class RosslerSystem:
     
 class RosslerSimulation(AbstractSimulation):
     def __init__(self, a, b, c, t_span, n_t_steps, X0, method="RK45"):
+
+        assert isinstance(a, (int, float)), "a must be a number"
+        assert isinstance(b, (int, float)), "b must be a number"
+        assert isinstance(c, (int, float)), "c must be a number"
+
         system = RosslerSystem(a, b, c)
         super().__init__(system, t_span, n_t_steps, X0, method)
 
