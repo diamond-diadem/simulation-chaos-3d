@@ -16,10 +16,10 @@ class LorenzSystem:
         return [dx, dy, dz]
     
 class LorenzSimulation:
-    def __init__(self, sigma, rho, beta, t_span, t_eval, X0):
+    def __init__(self, sigma, rho, beta, t_span, n_t_steps, X0):
         self.f = LorenzSystem(sigma, rho, beta)
         self.t_span = t_span
-        self.t_eval = t_eval
+        self.t_eval = np.linspace(*t_span, n_t_steps)
         self.X0 = X0
         self.solution = None
 
