@@ -1,0 +1,11 @@
+params:
+  # The Lorenz system parameters
+  sigma: 10.0
+  beta: 2.6666666666666665
+  rho: 28.0
+
+meta:
+  t_span: [0.0, 100.0]  # Time span for the simulation
+  n_t_steps: 10000  # Number of time steps in the simulation
+  X0: [1.0, 1.0, 1.0]  # Initial conditions for the Lorenz system
+  method: 'RK45'  # Numerical method for integration
