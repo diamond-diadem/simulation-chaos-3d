@@ -42,7 +42,7 @@ class AbstractSimulation(ABC):
         self.f = system
         self.t_span = t_span
         self.t_eval = np.linspace(*t_span, n_t_steps)
-        self.X0 = X0
+        self.X0 = np.asarray(X0, dtype=float)
         self.method = method
         self.solution = None
 
