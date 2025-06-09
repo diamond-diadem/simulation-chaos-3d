@@ -1,4 +1,5 @@
 from .base import AbstractSimulation
+from .visualisation import plot_xyz
 
 class LorenzSystem:
 
@@ -76,45 +77,57 @@ class LorenzSimulation(AbstractSimulation):
         super().__init__(system, t_span, n_t_steps, X0, method)
 
     def plot_solution(self, backend='matplotlib'):
-
+        
         """
         Plot the solution of the Lorenz system using the specified backend.
         Parameters:
         backend : str
             The plotting backend to use, either 'matplotlib' or 'plotly'.
         Raises:
-        ValueError: If the solution has not been computed yet or if an invalid backend is specified.
+            ValueError: If the solution has not been computed yet or if an invalid backend is specified.
         """
+        
+        plot_xyz(*self.solution.y, backend=backend)
 
-        assert backend in ['matplotlib', 'plotly'], "backend must be 'plotly' or 'matplotlib'"
+
+        # """
+        # Plot the solution of the Lorenz system using the specified backend.
+        # Parameters:
+        # backend : str
+        #     The plotting backend to use, either 'matplotlib' or 'plotly'.
+        # Raises:
+        # ValueError: If the solution has not been computed yet or if an invalid backend is specified.
+        # """
+
+        # assert backend in ['matplotlib', 'plotly'], "backend must be 'plotly' or 'matplotlib'"
         
-        if self.solution is None:
-            raise ValueError("No solution available. Please run the simulation first.")
+        # if self.solution is None:
+        #     raise ValueError("No solution available. Please run the simulation first.")
         
-        x, y, z = self.solution.y
+        # x, y, z = self.solution.y
         
-        if backend == 'matplotlib':
-            import matplotlib.pyplot as plt
-            from mpl_toolkits.mplot3d import Axes3D
+        # if backend == 'matplotlib':
+        #     import matplotlib.pyplot as plt
+        #     from mpl_toolkits.mplot3d import Axes3D
             
-            fig = plt.figure()
-            ax = fig.add_subplot(111, projection='3d')
-            ax.plot(x, y, z, lw=1, color='blue')
-            ax.set_xlabel('x')
-            ax.set_ylabel('y')
-            ax.set_zlabel('z')
-            plt.show()
+        #     fig = plt.figure()
+        #     ax = fig.add_subplot(111, projection='3d')
+        #     ax.plot(x, y, z, lw=1, color='blue')
+        #     ax.set_xlabel('x')
+        #     ax.set_ylabel('y')
+        #     ax.set_zlabel('z')
+        #     plt.show()
         
-        elif backend == 'plotly':
-            import plotly.graph_objects as go
-            fig = go.Figure(data=go.Scatter3d(
-                x=x, y=y, z=z,
-                mode='lines',
-                line=dict(width=1, color='blue')
-            ))
-            fig.update_layout(scene=dict(
-                xaxis_title='x',
-                yaxis_title='y',
-                zaxis_title='z'
-            ))
-            fig.show()
+        # elif backend == 'plotly':
+        #     import plotly.graph_objects as go
+        #     fig = go.Figure(data=go.Scatter3d(
+        #         x=x, y=y, z=z,
+        #         mode='lines',
+        #         line=dict(width=1, color='blue')
+        #     ))
+        #     fig.update_layout(scene=dict(
+        #         xaxis_title='x',
+        #         yaxis_title='y',
+        #         zaxis_title='z'
+        #     ))
+        #     fig.show()
