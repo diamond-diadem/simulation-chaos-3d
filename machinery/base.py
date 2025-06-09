@@ -96,3 +96,7 @@ class AbstractSimulation(ABC):
         if self.solution is None:
             raise RuntimeError("Simulation not yet run")
         return self.solution.t, self.solution.y
+    
+    @classmethod
+    def from_parameters(cls, params, t_span, n_t_steps, X0, method="RK45"):
+        return cls(**params, t_span=t_span, n_t_steps=n_t_steps, X0=X0, method=method)
