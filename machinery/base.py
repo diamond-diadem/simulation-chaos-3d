@@ -46,6 +46,25 @@ class AbstractSimulation(ABC):
         self.method = method
         self.solution = None
 
+    @abstractmethod
+    def plot_solution(self, backend='matplotlib'):
+
+        """
+        Abstract method to plot the solution of the simulation.
+        Args:
+            backend (str): The plotting backend to use, e.g., 'matplotlib' or 'plotly'.
+        Raises:
+            ValueError: If the solution has not been computed yet or if the backend is invalid.
+        """
+
+        pass
+
+    @property
+    def trajectory(self):
+        if self.solution is None:
+            raise RuntimeError("Simulation not yet run")
+        return self.solution.t, self.solution.y
+
     def run(self):
 
         """
@@ -77,25 +96,6 @@ class AbstractSimulation(ABC):
         
         if self.solution:
             np.savez(path, t=self.solution.t, X=self.solution.y)
-
-    @abstractmethod
-    def plot_solution(self, backend='matplotlib'):
-
-        """
-        Abstract method to plot the solution of the simulation.
-        Args:
-            backend (str): The plotting backend to use, e.g., 'matplotlib' or 'plotly'.
-        Raises:
-            ValueError: If the solution has not been computed yet or if the backend is invalid.
-        """
-
-        pass
-
-    @property
-    def trajectory(self):
-        if self.solution is None:
-            raise RuntimeError("Simulation not yet run")
-        return self.solution.t, self.solution.y
     
     @classmethod
     def from_parameters(cls, params, t_span, n_t_steps, X0, method="RK45"):
