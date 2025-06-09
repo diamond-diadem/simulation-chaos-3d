@@ -2,7 +2,6 @@ from .base import AbstractSimulation
 from .visualisation import plot_xyz
 
 class RosslerSystem:
-
     """
     Class representing the Rossler system of differential equations.
     The Rossler system is defined by the equations:
@@ -13,15 +12,12 @@ class RosslerSystem:
     """
 
     def __init__(self, a, b, c):
-
         """Initialize the Rossler system with parameters a, b, and c."""
-        
         self.a = a
         self.b = b
         self.c = c
 
     def __call__(self, t, X):
-
         """
         Compute the derivatives of the Rossler system at time t for state X.
         Parameters:
@@ -33,21 +29,18 @@ class RosslerSystem:
         list
             The derivatives [dx/dt, dy/dt, dz/dt] of the Rossler system.
         """
-
-        x, y, z = X
-        dx = -y - z
-        dy = x + self.a * y
-        dz = self.b + z * (x - self.c)
+        x, y, z = X  # Unpack the state vector
+        dx = -y - z  # Rossler equation for dx/dt
+        dy = x + self.a * y  # Rossler equation for dy/dt
+        dz = self.b + z * (x - self.c)  # Rossler equation for dz/dt
         return [dx, dy, dz]
     
 class RosslerSimulation(AbstractSimulation):
-
     """
     Class for simulating the Rossler system of differential equations.
     Inherits from AbstractSimulation and uses the RosslerSystem class to define the system.
     """
     def __init__(self, a, b, c, t_span, n_t_steps, X0, method="RK45"):
-
         """
         Initialize the Rossler simulation with parameters a, b, c,
         time span, number of time steps, initial conditions, and integration method.
@@ -67,16 +60,15 @@ class RosslerSimulation(AbstractSimulation):
         method : str
             The integration method to use, e.g., 'RK45', 'RK23', etc.
         """
-
+        # Ensure parameters are numbers
         assert isinstance(a, (int, float)), "a must be a number"
         assert isinstance(b, (int, float)), "b must be a number"
         assert isinstance(c, (int, float)), "c must be a number"
 
-        system = RosslerSystem(a, b, c)
-        super().__init__(system, t_span, n_t_steps, X0, method)
+        system = RosslerSystem(a, b, c)  # Instantiate the Rossler system
+        super().__init__(system, t_span, n_t_steps, X0, method)  # Initialize the base simulation
 
     def plot_solution(self, backend='matplotlib'):
-
         """
         Plot the solution of the Rossler system using the specified backend.
         Parameters:
@@ -85,5 +77,5 @@ class RosslerSimulation(AbstractSimulation):
         Raises:
         ValueError: If the solution has not been computed yet.
         """
-
+        # Unpack the solution and plot using the chosen backend
         plot_xyz(*self.solution.y, backend)
