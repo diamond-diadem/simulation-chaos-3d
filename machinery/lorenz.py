@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.integrate import solve_ivp
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 class LorenzSystem:
     def __init__(self, sigma, rho, beta):
@@ -40,15 +39,26 @@ class LorenzSimulation:
 
     def plot_solution(self):
 
-        fig = plt.figure(figsize=(10, 7))
-        ax = fig.add_subplot(111, projection='3d')
+        # fig = plt.figure(figsize=(10, 7))
+        # ax = fig.add_subplot(111, projection='3d')
 
         x, y, z = self.solution.y
-        ax.plot(x, y, z, lw=0.5)
+        fig = go.Figure(data=go.Scatter3d(
+            x=x, y=y, z=z,
+            mode='lines',
+            line=dict(width=1, color='blue')
+        ))
+        fig.update_layout(scene=dict(
+            xaxis_title='x',
+            yaxis_title='y',
+            zaxis_title='z'
+        ))
+        fig.show()
+        # ax.plot(x, y, z, lw=0.5)
 
-        ax.set_xlabel("x")
-        ax.set_ylabel("y")
-        ax.set_zlabel("z")
-        ax.set_title("Attracteur de Lorenz")
+        # ax.set_xlabel("x")
+        # ax.set_ylabel("y")
+        # ax.set_zlabel("z")
+        # ax.set_title("Attracteur de Lorenz")
 
-        plt.show()
+        # plt.show()
