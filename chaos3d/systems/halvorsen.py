@@ -1,3 +1,20 @@
+"""
+halvorsen.py
+
+This module defines the Halvorsen system of differential equations and provides
+classes for simulating and visualizing its behavior. The Halvorsen system is a
+three-dimensional chaotic system defined by a set of nonlinear ordinary differential
+equations with a parameter 'a'. The module includes:
+
+- HalvorsenSystem: Encapsulates the system's equations.
+- HalvorsenSimulation: Provides simulation and visualization utilities for the system.
+
+Dependencies:
+    - numpy
+    - matplotlib or plotly (for visualization)
+    - scipy (for ODE integration)
+"""
+
 from ..base import AbstractSimulation
 from ..visualisation import plot_xyz, generate_animation_txyz
 
