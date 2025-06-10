@@ -1,5 +1,5 @@
 from ..base import AbstractSimulation
-from ..visualisation import plot_xyz
+from ..visualisation import plot_xyz, generate_animation_txyz
 
 class RosslerSystem:
     """
@@ -79,3 +79,18 @@ class RosslerSimulation(AbstractSimulation):
         """
         # Unpack the solution and plot using the chosen backend
         plot_xyz(*self.solution.y, backend)
+
+    def generate_animation(self, filename, fps=30, bitrate=1800):
+        """
+        Generate an animation of the solution of the Halvorsen system.
+        Parameters:
+            filename : str
+                The name of the file to save the animation.
+            fps : int
+                Frames per second for the animation.
+            bitrate : int
+                Bitrate for the video encoding.
+        Raises:
+            ValueError: If the solution has not been computed yet.
+        """
+        generate_animation_txyz(self.solution.t, *self.solution.y, filename, fps=fps, bitrate=bitrate)

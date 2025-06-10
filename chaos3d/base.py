@@ -65,6 +65,18 @@ class AbstractSimulation(ABC):
         """
         pass
 
+    @abstractmethod
+    def generate_animation(self, fps=30, bitrate=1800):
+        """
+        Abstract method to generate an animation of the simulation results.
+        Args:
+            fps (int): Frames per second for the animation.
+            bitrate (int): Bitrate for the video encoding.
+        Raises:
+            ValueError: If the solution has not been computed yet.
+        """
+        pass
+
     @property
     def trajectory(self):
         # Return the time points and solution if simulation has been run
