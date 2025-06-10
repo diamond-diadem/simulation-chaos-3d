@@ -1,3 +1,15 @@
+"""
+Lorenz System Simulation Module
+
+This module defines classes for simulating and visualizing the Lorenz system of differential equations,
+a classic example of a chaotic dynamical system. It provides the LorenzSystem class for the system's
+differential equations and the LorenzSimulation class for running simulations and generating plots or animations.
+
+Classes:
+    LorenzSystem: Represents the Lorenz system of ODEs.
+    LorenzSimulation: Simulates the Lorenz system and provides visualization utilities.
+"""
+
 from ..base import AbstractSimulation
 from ..visualisation import plot_xyz, generate_animation_txyz
 
