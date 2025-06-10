@@ -1,3 +1,15 @@
+"""
+visualisation.py
+
+This module provides functions for visualizing and animating 3D trajectories.
+It supports both matplotlib and plotly backends for static 3D plotting, and
+offers animation generation and saving using matplotlib.
+
+Functions:
+- plot_xyz: Plot a 3D trajectory using matplotlib or plotly.
+- generate_animation_txyz: Generate and save a 3D trajectory animation as a video file.
+"""
+
 def plot_xyz(x, y, z, backend='matplotlib'):
     """
     Plot the 3D trajectory of the system in the x, y, z space.
