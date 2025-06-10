@@ -66,12 +66,12 @@ def generate_animation_txyz(t, x, y, z, filename, fps=30, bitrate=1800):
     from matplotlib.animation import FuncAnimation
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib.animation import FFMpegWriter
-    
-    # Initialisation de la figure
+
+    # Initialize the figure
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-    # Configuration de la vue
+    # Configure the view
     ax.set_xlim([min(x), max(x)])
     ax.set_ylim([min(y), max(y)])
     ax.set_zlim([min(z), max(z)])
@@ -79,38 +79,41 @@ def generate_animation_txyz(t, x, y, z, filename, fps=30, bitrate=1800):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
 
-    # Ligne pour la trajectoire et point pour la position actuelle
-    line, = ax.plot([], [], [], lw=2)
-    point, = ax.plot([], [], [], 'ro')  # point rouge
+     # Set camera to view from (10, 10, 10) toward the origin
+    ax.view_init(elev=35.264, azim=45)
 
-    # Fonction d'initialisation
+    # Line for the trajectory and point for the current position
+    line, = ax.plot([], [], [], lw=2)
+    point, = ax.plot([], [], [], 'ro')  # red point
+
+    # Initialization function
     def init():
-        """Initialisation de la ligne et du point."""
+        """Initialize the line and the point."""
         line.set_data([], [])
         line.set_3d_properties([])
         point.set_data([], [])
         point.set_3d_properties([])
         return line, point
 
-    # Fonction d’animation
+    # Animation function
     def update(frame):
-        """Met à jour la ligne et le point pour chaque frame."""
+        """Update the line and the point for each frame."""
         line.set_data(x[:frame], y[:frame])
         line.set_3d_properties(z[:frame])
-        
+
         point.set_data([x[frame]], [y[frame]])
         point.set_3d_properties([z[frame]])
-        
-        return line, point
 
+        return line, point
 
     ani = FuncAnimation(fig, update, frames=len(t), init_func=init,
                         interval=18, blit=False)
 
-    # Définir le writer vidéo
+    # Define the video writer
     writer = FFMpegWriter(fps=fps, bitrate=bitrate)
 
-    # Enregistrement en MP4
+    # Save as MP4
     ani.save(filename, writer=writer)
 
-    plt.close(fig)  # Fermer la figure pour libérer la mémoire
+    # Close the figure to prevent the last frame from being displayed in a Jupyter notebook
+    plt.close(fig)
