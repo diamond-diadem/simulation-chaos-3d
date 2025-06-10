@@ -1,3 +1,11 @@
+"""
+rossler.py
+
+This module defines the RosslerSystem and RosslerSimulation classes for simulating
+the Rossler system of differential equations, a well-known example of a chaotic system.
+It provides functionality for integrating the system and visualizing its solutions.
+"""
+
 from ..base import AbstractSimulation
 from ..visualisation import plot_xyz, generate_animation_txyz
 
