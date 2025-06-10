@@ -10,6 +10,7 @@ methods for the simulation results.
 from abc import ABC, abstractmethod
 import numpy as np
 from scipy.integrate import solve_ivp
+from .visualisation import plot_xyz, generate_animation_txyz
 
 class AbstractSimulation(ABC):
     """
@@ -63,29 +64,6 @@ class AbstractSimulation(ABC):
         params = self.f.__dict__  # Get parameters from the system function/class
         return f"<{cls} {params} t_span={self.t_span} n_t_steps={len(self.t_eval)} X0={self.X0} method='{self.method}'>"
 
-    @abstractmethod
-    def plot_solution(self, backend='matplotlib'):
-        """
-        Abstract method to plot the solution of the simulation.
-        Args:
-            backend (str): The plotting backend to use, e.g., 'matplotlib' or 'plotly'.
-        Raises:
-            ValueError: If the solution has not been computed yet or if the backend is invalid.
-        """
-        pass
-
-    @abstractmethod
-    def generate_animation(self, fps=30, bitrate=1800):
-        """
-        Abstract method to generate an animation of the simulation results.
-        Args:
-            fps (int): Frames per second for the animation.
-            bitrate (int): Bitrate for the video encoding.
-        Raises:
-            ValueError: If the solution has not been computed yet.
-        """
-        pass
-
     @property
     def trajectory(self):
         # Return the time points and solution if simulation has been run
@@ -122,6 +100,30 @@ class AbstractSimulation(ABC):
         # Save only if the solution exists
         if self.solution:
             np.savez(path, t=self.solution.t, X=self.solution.y)
+
+    def plot_solution(self, backend='matplotlib'):
+        """
+        Plots the solution of the simulation in 3D space using the specified backend.
+        Args:
+            backend (str): The plotting backend to use ('matplotlib' or 'plotly').
+        Raises:
+            ValueError: If the solution has not been computed yet.
+        """
+        plot_xyz(*self.solution.y, backend=backend)
+
+    def generate_animation(self, filename, fps=30, bitrate=1800):
+        """
+        Generates an animation of the trajectory in 3D space and saves it as a video file.
+        Args:
+            fps (int): Frames per second for the animation.
+            bitrate (int): Bitrate for the video file.
+        Raises:
+            ValueError: If the solution has not been computed yet.
+        """
+        if self.solution is None:
+            raise ValueError("Simulation not yet run. Please run the simulation before generating an animation.")
+        
+        generate_animation_txyz(self.solution.t, *self.solution.y, filename, fps=fps, bitrate=bitrate)
     
     @classmethod
     def from_parameters(cls, params, t_span, n_t_steps, X0, method="RK45"):

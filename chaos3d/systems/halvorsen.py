@@ -76,30 +76,3 @@ class HalvorsenSimulation(AbstractSimulation):
 
         system  = HalvorsenSystem(a)  # Instantiate the Halvorsen system
         super().__init__(system, t_span, n_t_steps, X0, method)  # Initialize the base simulation
-
-    def plot_solution(self, backend='matplotlib'):
-        """
-        Plot the solution of the Halvorsen system using the specified backend.
-        Parameters:
-            backend : str
-                The plotting backend to use, either 'matplotlib' or 'plotly'.
-        Raises:
-            ValueError: If the solution has not been computed yet or if an invalid backend is specified.
-        """
-        # Use the plot_xyz utility to plot the solution in 3D
-        plot_xyz(*self.solution.y, backend=backend)
-    
-    def generate_animation(self, filename, fps=30, bitrate=1800):
-        """
-        Generate an animation of the solution of the Halvorsen system.
-        Parameters:
-            filename : str
-                The name of the file to save the animation.
-            fps : int
-                Frames per second for the animation.
-            bitrate : int
-                Bitrate for the video encoding.
-        Raises:
-            ValueError: If the solution has not been computed yet.
-        """
-        generate_animation_txyz(self.solution.t, *self.solution.y, filename, fps=fps, bitrate=bitrate)

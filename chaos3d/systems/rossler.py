@@ -75,30 +75,3 @@ class RosslerSimulation(AbstractSimulation):
 
         system = RosslerSystem(a, b, c)  # Instantiate the Rossler system
         super().__init__(system, t_span, n_t_steps, X0, method)  # Initialize the base simulation
-
-    def plot_solution(self, backend='matplotlib'):
-        """
-        Plot the solution of the Rossler system using the specified backend.
-        Parameters:
-        backend : str
-            The plotting backend to use, either 'matplotlib' or 'plotly'.
-        Raises:
-        ValueError: If the solution has not been computed yet.
-        """
-        # Unpack the solution and plot using the chosen backend
-        plot_xyz(*self.solution.y, backend)
-
-    def generate_animation(self, filename, fps=30, bitrate=1800):
-        """
-        Generate an animation of the solution of the Halvorsen system.
-        Parameters:
-            filename : str
-                The name of the file to save the animation.
-            fps : int
-                Frames per second for the animation.
-            bitrate : int
-                Bitrate for the video encoding.
-        Raises:
-            ValueError: If the solution has not been computed yet.
-        """
-        generate_animation_txyz(self.solution.t, *self.solution.y, filename, fps=fps, bitrate=bitrate)
