@@ -1,3 +1,12 @@
+"""
+base.py
+
+This module defines the AbstractSimulation class, an abstract base class for numerical simulations
+of dynamical systems. It provides a framework for integrating systems of ordinary differential
+equations (ODEs) using scipy's solve_ivp, and requires subclasses to implement visualization
+methods for the simulation results.
+"""
+
 from abc import ABC, abstractmethod
 import numpy as np
 from scipy.integrate import solve_ivp
