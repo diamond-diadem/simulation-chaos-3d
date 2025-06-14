@@ -1,4 +1,5 @@
 **/__pycache__/
+.chaos-3d-venv/
 *.npz
 *.mp4
 *.zip
