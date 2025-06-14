@@ -1,0 +1,5 @@
+# Requirements for chaos3d simulations
+numpy==1.26.4
+scipy==1.11.4
+matplotlib==3.8.2
+plotly==5.18.0
